@@ -1,0 +1,14 @@
+/* container */
+.new-game-container {
+    padding: 0.1rem;
+    margin: 0.2rem;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.new-game-card {
+    padding: 0.1rem;
+    margin: 0.2rem;
+    width: 10rem;
+    margin: 0 auto;
+}

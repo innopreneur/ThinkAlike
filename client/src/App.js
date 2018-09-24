@@ -29,7 +29,7 @@ class App extends Component {
 
   componentDidMount = async () => {
     const web3 = await getWeb3();
-  /*  try {
+   try {
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
 
@@ -50,7 +50,7 @@ class App extends Component {
         `Failed to load web3, accounts, or contract. Check console for details.`
       );
       console.log(error);
-    } */
+    } 
   };
 
   runExample = async () => {
@@ -58,12 +58,13 @@ class App extends Component {
 
     // Stores a given value, 5 by default.
     await contract.set(5, { from: accounts[0] });
-
+    console.log("Storage Value : " + this.state.storageValue)
     // Get the value from the contract to prove it worked.
     const response = await contract.get();
 
     // Update state with the result.
     this.setState({ storageValue: response.toNumber() });
+   
   };
 
   handleSortSelect(sortBy){
@@ -71,6 +72,7 @@ class App extends Component {
     this.setState({sortBy});
   }
   render() {
+  
   
     return (
       <div>
