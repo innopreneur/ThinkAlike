@@ -32,14 +32,14 @@ contract ThinkAlike {
         owner = msg.sender;
     }
 
-    function putStack(string combo, uint amount) public onlyOnce(msg.sender) notNullAmount(amount) payable{
+    function stack(string combo, uint amount) public onlyOnce(msg.sender) notNullAmount(amount) payable {
         stackToValue[uint(keccak256(combo))] = amount;
     }
 
-    function transferWinnings(address winner, uint amount) public onlyOwner(msg.sender) payable{
+    function transferWinnings(address winner, uint amount) public onlyOwner(msg.sender) payable {
 
     }
-    function startGame(address initiator, uint amount, string gameId, string options) public notNullAmount(amount) payable{
+    function startGame(address initiator, uint amount, string gameId, string options) public notNullAmount(amount) payable {
         //validate that msg.value has value
     }
     function checkIfWon(address caller, uint gameId) public {

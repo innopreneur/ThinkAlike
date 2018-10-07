@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {Container, Row} from 'react-bootstrap/lib';
 import Game from './Game';
 import games from './games';
+import config  from '../utils/config';
 import Sort from './../constants';
+let { SERVER, ROUTES } = config;
 
 class GameContainer extends Component {
   
@@ -16,11 +18,28 @@ class GameContainer extends Component {
 
     componentDidMount(){
         //fetch all games and update state
-        this.setState({games});
+        this.fetchGames();
+        //this.setState({games})
     }
 
+    fetchGames(){
+        let url = SERVER.PROTOCOL + '://' + SERVER.HOST + ':' + SERVER.PORT + ROUTES.GET_GAMES;
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type' : 'application/json',
+            }
+        })
+        .then((response) => response.json())
+        .then((games) => {
+          this.setState({games})
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
     componentWillReceiveProps(nextProps){
-        console.log("New props : " + nextProps.sortBy)
         if(this.props.sortBy != nextProps.sortBy)
             this.setState({sortBy: nextProps.sortBy})
     }
@@ -49,8 +68,12 @@ class GameContainer extends Component {
     }
     render(){
         return(
+           
             <Container>
-                {this.sort(this.state.games, this.state.sortBy).map((game, i) => <Game class="game-container" key={i+1} index={i+1} data={game} />)}  
+                {
+                 this.sort(this.state.games, this.state.sortBy).map((game, i) => <Game class="game-container" key={i+1} index={i+1} data={game} />)  
+                }
+               
             </Container>
          
         );

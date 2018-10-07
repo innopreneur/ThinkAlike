@@ -31,16 +31,6 @@ export default
             createdOn: new Date("2018-05-10")
         },
         {
-            question: "Did Robin Williams acutally committed suicide or was it murder?",
-            option1: "Suicide",
-            option2: "Murder",
-            expiryType: "time",
-            expiresIn: 2,
-            votes: 76,
-            value: 3,
-            createdOn: new Date("2018-09-10")
-        },
-        {
             question: "How much will Avengers: Infinity Wars 2 earn at box office?",
             option1: ">= 2 billion USD",
             option2: "< 2 billion USD",
