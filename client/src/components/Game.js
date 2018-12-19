@@ -7,12 +7,17 @@ import { Card,
     Modal, 
     InputGroup, 
     FormControl } from 'react-bootstrap/lib';
+import moment from 'moment';
 import { FaClock, FaEthereum, FaCalendarAlt } from 'react-icons/fa';
 import './Game.css';
+
 
 class Game extends Component {
     constructor(props){
         super(props);
+        this.myStake = React.createRef();
+        this.myVote = React.createRef();
+        this.stakedGame = React.createRef();
         this.state = {
             showConfirmStackModal: false,
             currentSelection: ""
@@ -36,24 +41,13 @@ class Game extends Component {
         //handle amount of ETH stacked
     }
 
-    formatDate(date) {
-        var monthNames = [
-          "January", "February", "March",
-          "April", "May", "June", "July",
-          "August", "September", "October",
-          "November", "December"
-        ];
+    formatDate(d) {
+        return moment(d).format('llll');
+    }
       
-        var day = date.getDate();
-        var monthIndex = date.getMonth();
-        var year = date.getFullYear();
-        var hour = date.getHours();
-        var minutes = date.getMinutes();
-        var seconds = date.getSeconds();
-      
-        return day + '/' + monthIndex + '/' + year + ' ' + hour + ':' + minutes + ':' + seconds ;
-      }
-      
+    formatExpiry(expiry){
+        return moment(expiry).diff(Date(), 'hours');
+    }
     render(){
       
         let {opt1Clicked, opt2Clicked, showConfirmStackModal} = this.state;
@@ -70,7 +64,7 @@ class Game extends Component {
                             <Row as="div" className="game-item-metadata-container"> 
                                 <div className="game-item-expiry-container">
                                     <span className="game-item-expiry-icon"><FaClock /></span>
-                                    <span className="game-item-expiry-time">{data.expiresIn} min left</span>
+                                    <span className="game-item-expiry-time">{this.formatExpiry(data.expiry)} hours left</span>
                                 </div>
                                 <div className="game-item-value-container">
                                     <span className="game-item-value-icon"><FaEthereum /></span>
@@ -90,14 +84,14 @@ class Game extends Component {
                                         id="option1"
                                         onClick={this.handleClick.bind(this)}
                                         >
-                                        {this.props.data.option1}
+                                        {data.options['1']}
                                 </Button>
                                 <Button variant="outline-primary" 
                                         className="game-item-option"
                                         id="option2"
                                         onClick={this.handleClick.bind(this)}
                                         >
-                                         {this.props.data.option2}
+                                         {data.options['2']}
                                 </Button>
                                 
                             </Row>

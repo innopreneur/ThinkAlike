@@ -10,6 +10,7 @@ import Proof from './components/Proof';
 import Claim from './components/Claim';
 import NewGame from './components/NewGame';
 import Constants from './constants';
+import DateTimePicker from './components/DateTimePicker';
 
 
 class App extends Component {
@@ -68,6 +69,7 @@ class App extends Component {
       <Route path="/claim" component={Claim}/>
       <Route path="/proof" component={Proof}/>
       <Route path="/new" component={NewGame}/>
+      <Route path="/date" component={DateTimePicker} />
       </div>
     );
   }

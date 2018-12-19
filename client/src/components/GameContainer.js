@@ -24,6 +24,7 @@ class GameContainer extends Component {
 
     fetchGames(){
         let url = SERVER.PROTOCOL + '://' + SERVER.HOST + ':' + SERVER.PORT + ROUTES.GET_GAMES;
+        console.log(url)
         fetch(url, {
             method: 'GET',
             headers: {
@@ -44,6 +45,7 @@ class GameContainer extends Component {
             this.setState({sortBy: nextProps.sortBy})
     }
     sort(games, sortBy){
+        console.log(games);
         //sort descending order of votes
         switch(sortBy){
             case Sort.TOTAL_VOTES:
@@ -71,7 +73,7 @@ class GameContainer extends Component {
            
             <Container>
                 {
-                 this.sort(this.state.games, this.state.sortBy).map((game, i) => <Game class="game-container" key={i+1} index={i+1} data={game} />)  
+                 this.sort(this.state.games, this.state.sortBy).map((game, i) => <Game class="game-container" key={game['_id']} index={i+1} data={game} />)  
                 }
                
             </Container>

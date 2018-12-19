@@ -8,10 +8,9 @@ import { Card,
     Alert } from 'react-bootstrap/lib';
 import { Redirect } from 'react-router-dom';
 import getWeb3 from '../utils/getWeb3';
-import InputMoment from 'input-moment';
-import moment from 'moment';
 import './NewGame.css'; 
 import config  from '../utils/config';
+import DateTimePicker from './DateTimePicker';
 let { SERVER, ROUTES } = config;
 class NewGame extends Component {
 
@@ -20,13 +19,13 @@ class NewGame extends Component {
         this.question = React.createRef();
         this.option1 = React.createRef();
         this.option2 = React.createRef();
-        this.expiry = React.createRef();
         this.stack =  React.createRef();
         this.mySelection = React.createRef();
         this.state = { 
             redirectToGames: false, 
             voteSelected: "",
-            showGameSavedAlert: false
+            showGameSavedAlert: false,
+            expiry: new Date()
        }
     }
 
@@ -71,7 +70,7 @@ class NewGame extends Component {
                 "2": this.option2.current.value
             },
             "expiryType": "time",
-            "expiry": this.expiry.current.value,
+            "expiry": this.state.expiry,
             "votes": 1,
             "value": parseInt(this.stack.current.value),
            "createdOn": new Date(),
@@ -91,6 +90,12 @@ class NewGame extends Component {
     }
     handleReset(){
 
+    }
+    handleExpiry(selectedDate){
+        this.setState({
+            expiry: selectedDate
+        })
+        console.log("expiry - " + this.state.expiry);
     }
 
     render(){
@@ -130,7 +135,8 @@ class NewGame extends Component {
                             </Form.Group>
 
                             <Form.Group id="expiry-grp">
-                                <Form.Control ref={this.expiry} placeholder="Expiry date (ISO)" />
+                            <div>Expires in : <DateTimePicker selection={this.handleExpiry.bind(this)}/></div>
+                            
                             </Form.Group>
 
                             <Form.Group id="stack-grp">
